@@ -3,5 +3,8 @@
     "editor.defaultFormatter": "ms-dotnettools.csdevkit",
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[csharp]": {
+        "editor.defaultFormatter": "ms-dotnettools.csharp"
     }
 }
