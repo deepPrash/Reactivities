@@ -6,5 +6,8 @@
     },
     "[csharp]": {
         "editor.defaultFormatter": "ms-dotnettools.csharp"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }
