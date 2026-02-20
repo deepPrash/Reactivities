@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
 import { LoginSchema } from "../schemas/loginSchema";
-import { Register, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { RegisterSchema } from "../schemas/registerSchema";
 import { toast } from "react-toastify";
 
