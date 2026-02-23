@@ -24,5 +24,6 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.User.Bio))
             .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src =>
                 src.User.ImageUrl));
+        CreateMap<User, UserProfile>();
     }
 }
