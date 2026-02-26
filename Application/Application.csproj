@@ -31,6 +31,8 @@
     <Folder Include="Profiles\Commands\" />
     <Folder Include="Profiles\DTOs\" />
     <Folder Include="Profiles\Queries\" />
+    <Folder Include="Profiles\Validators;\" />
+    <Folder Include="Profiles\Validators\" />
   </ItemGroup>
 
 </Project>
