@@ -19,10 +19,12 @@ export const useActivities = (id?: string) => {
     // Only fetch activities list if we're on the activities page and user is logged in
     select: (data) => {
       return data.map((activity) => {
+        const host = activity.attendees.find((a) => a.id === activity.hostId);
         return {
           ...activity,
           isHost: currentUser?.id === activity.hostId,
           isGoing: activity.attendees.some((a) => a.id === currentUser?.id),
+          hostImageUrl: host?.imageUrl,
         };
       });
     },
@@ -37,10 +39,12 @@ export const useActivities = (id?: string) => {
     enabled: !!id && !!currentUser,
     // Only fetch activity details if an ID is provided and user is logged in
     select: (data) => {
+      const host = data.attendees.find((a) => a.id === data.hostId);
       return {
         ...data,
         isHost: currentUser?.id === data.hostId,
         isGoing: data.attendees.some((a) => a.id === currentUser?.id),
+        hostImageUrl: host?.imageUrl,
       };
     },
   });
