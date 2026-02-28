@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { SyntheticEvent, useState } from "react";
 import ProfilePhotos from "./ProfilePhotos";
 import ProfileAbout from "./ProfileAbout";
+import ProfileFollowings from "./ProfileFollowings";
 
 export default function ProfileContent() {
   const [value, setValue] = useState(0);
@@ -26,11 +27,11 @@ export default function ProfileContent() {
     },
     {
       label: "Followers",
-      content: <div>Followers</div>,
+      content: <ProfileFollowings activeTab={value} />,
     },
     {
       label: "Following",
-      content: <div>Following</div>,
+      content: <ProfileFollowings activeTab={value} />,
     },
   ];
 
