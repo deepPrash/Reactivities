@@ -12,7 +12,7 @@ public class MappingProfiles : Profile
     {
         string? currentUserId = null;
         CreateMap<Activity, Activity>();
-
+        CreateMap<Activity, UserActivityDto>();
         CreateMap<CreateActivityDto, Activity>();
 
         CreateMap<EditActivityDto, Activity>();

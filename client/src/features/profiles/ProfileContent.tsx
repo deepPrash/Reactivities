@@ -4,6 +4,7 @@ import { SyntheticEvent, useState } from "react";
 import ProfilePhotos from "./ProfilePhotos";
 import ProfileAbout from "./ProfileAbout";
 import ProfileFollowings from "./ProfileFollowings";
+import ProfileActivities from "./ProfileActivities";
 
 export default function ProfileContent() {
   const [value, setValue] = useState(0);
@@ -15,7 +16,7 @@ export default function ProfileContent() {
   const tabContent = [
     {
       label: "About",
-      content: <ProfileAbout/>,
+      content: <ProfileAbout />,
     },
     {
       label: "Photos",
@@ -23,7 +24,7 @@ export default function ProfileContent() {
     },
     {
       label: "Events",
-      content: <div>Events</div>,
+      content: <ProfileActivities />,
     },
     {
       label: "Followers",

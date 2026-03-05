@@ -1,9 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { EditProfileSchema } from "../schemas/editProfileSchema";
 
 export const useProfile = (id?: string, predicate?: string) => {
+  const [filter, setFilter] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const { data: profile, isLoading: loadingProfile } = useQuery<Profile>({
@@ -35,6 +36,22 @@ export const useProfile = (id?: string, predicate?: string) => {
       return response.data;
     },
     enabled: !!id && !!predicate, // Only run the query if id and predicate are provided
+  });
+
+  const { data: userActivities, isLoading: loadingUserActivities } = useQuery({
+    queryKey: ["user-activities", filter],
+    queryFn: async () => {
+      const response = await agent.get<Activity[]>(
+        `/profiles/${id}/activities`,
+        {
+          params: {
+            filter,
+          },
+        },
+      );
+      return response.data;
+    },
+    enabled: !!id && !!filter, // Only run the query if id and filter are provided
   });
 
   const uploadPhoto = useMutation({
@@ -127,7 +144,9 @@ export const useProfile = (id?: string, predicate?: string) => {
     },
     onSuccess: () => {
       queryClient.setQueryData(["profile", id], (profile: Profile) => {
-        queryClient.invalidateQueries({ queryKey: ["followings", id, "followers"] });
+        queryClient.invalidateQueries({
+          queryKey: ["followings", id, "followers"],
+        });
         if (!profile || profile.followersCount === undefined) return profile;
 
         return {
@@ -158,5 +177,9 @@ export const useProfile = (id?: string, predicate?: string) => {
     updateFollowing,
     followings,
     loadingFollowings,
+    userActivities,
+    loadingUserActivities,
+    filter,
+    setFilter,
   };
 };
