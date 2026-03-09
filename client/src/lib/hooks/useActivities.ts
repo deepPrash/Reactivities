@@ -9,6 +9,7 @@ import agent from "../api/agent";
 import { useLocation } from "react-router";
 import { useAccount } from "./useAccount";
 import { useStore } from "./useStore";
+import { FieldValues } from "react-hook-form";
 
 export const useActivities = (id?: string) => {
   const {
@@ -40,7 +41,7 @@ export const useActivities = (id?: string) => {
       );
       return response.data;
     },
-    staleTime: 1000 * 60 * 5, // 5 minutes stale time for activities list load from cache
+    //staleTime: 1000 * 60 * 5, // 5 minutes stale time for activities list load from cache
     placeholderData: keepPreviousData,
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -84,15 +85,17 @@ export const useActivities = (id?: string) => {
 
   const updateActivity = useMutation({
     mutationFn: async (activity: Activity) => {
-      await agent.put("/activities", activity);
+      await agent.put(`/activities/${activity.id}`, activity);
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["activities"] });
+      await queryClient.invalidateQueries({
+        queryKey: ["activities", activity?.id],
+      });
     },
   });
 
   const createActivity = useMutation({
-    mutationFn: async (activity: Activity) => {
+    mutationFn: async (activity: FieldValues) => {
       const response = await agent.post("/activities", activity);
       return response.data;
     },

@@ -3,7 +3,6 @@ import {
   useController,
   UseControllerProps,
 } from "react-hook-form";
-import { LocationIQSuggestion } from "../../../lib/types";
 import { useEffect, useMemo, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";

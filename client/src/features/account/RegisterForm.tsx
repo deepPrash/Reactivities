@@ -11,7 +11,6 @@ import { LockOpen } from "@mui/icons-material";
 import { Button, Typography } from "@mui/material";
 import TextInput from "../../app/shared/components/TextInput";
 import { Link } from "react-router";
-import { set } from "date-fns";
 
 export default function RegisterForm() {
   const { registerUser } = useAccount();

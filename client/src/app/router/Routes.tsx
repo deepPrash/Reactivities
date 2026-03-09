@@ -6,12 +6,12 @@ import ActivityDetailPage from "../../features/activities/details/ActivityDetail
 import HomePage from "../../features/home/HomePage";
 import Counter from "../../features/counter/counter";
 import TestErrors from "../../features/errors/TestErrors";
-import NotFound from "../../features/errors/notfound";
 import ServerError from "../../features/errors/ServerError";
 import LoginForm from "../../features/account/LoginForm";
 import RequireAuth from "./RequireAuth";
 import RegisterForm from "../../features/account/RegisterForm";
 import ProfilePage from "../../features/profiles/ProfilePage";
+import NotFound from "../../features/errors/NotFound";
 
 export const router = createBrowserRouter([
   {
