@@ -487,3 +487,15 @@ API/reactivities.db
 .config/dotnet-tools.json
 API/reactivities.db-shm
 API/reactivities.db-wal
+client/.../.env.development
+client/.../.env.production
+client/.../.gitignore
+client/.../eslint.config.js
+client/.../index.html
+client/.../package-lock.json
+client/.../package.json
+client/.../README.md
+client/.../tsconfig.app.json
+client/.../tsconfig.json
+client/.../tsconfig.node.json
+client/.../vite.config.ts
