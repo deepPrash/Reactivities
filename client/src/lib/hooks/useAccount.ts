@@ -4,7 +4,6 @@ import { LoginSchema } from "../schemas/loginSchema";
 import { useNavigate } from "react-router";
 import { RegisterSchema } from "../schemas/registerSchema";
 import { toast } from "react-toastify";
-import { string } from "zod";
 
 export const useAccount = () => {
   const queryClient = useQueryClient();
