@@ -4,6 +4,7 @@ import { LoginSchema } from "../schemas/loginSchema";
 import { useNavigate } from "react-router";
 import { RegisterSchema } from "../schemas/registerSchema";
 import { toast } from "react-toastify";
+import { string } from "zod";
 
 export const useAccount = () => {
   const queryClient = useQueryClient();
@@ -22,10 +23,6 @@ export const useAccount = () => {
     mutationFn: async (creds: RegisterSchema) => {
       await agent.post("/account/register", creds);
     },
-    onSuccess: async() => {
-      toast.success("Registration successful! Please log in.");
-        await navigate("/login");
-    }
   });
 
   const logoutUser = useMutation({
@@ -36,6 +33,29 @@ export const useAccount = () => {
       await queryClient.removeQueries({ queryKey: ["user"] });
       await queryClient.removeQueries({ queryKey: ["activities"] }); // Clear activities cache on logout
       await navigate("/");
+    },
+  });
+
+  const verifyEmail = useMutation({
+    mutationFn: async ({ userId, code }: { userId: string; code: string }) => {
+      await agent.get(`/confirmEmail?userId=${userId}&code=${code}`);
+    },
+  });
+
+  const resendConfirmationEmail = useMutation({
+    mutationFn: async ({
+      email,
+      userId,
+    }: {
+      email?: string;
+      userId?: string | null;
+    }) => {
+      await agent.get(`/account/resendConfirmEmail`, {
+        params: { email, userId },
+      });
+    },
+    onSuccess: () => {
+      toast.success("Email sent - please check your inbox");
     },
   });
 
@@ -53,6 +73,8 @@ export const useAccount = () => {
     currentUser,
     logoutUser,
     loadingUserInfo,
-    registerUser
+    registerUser,
+    verifyEmail,
+    resendConfirmationEmail,
   };
 };

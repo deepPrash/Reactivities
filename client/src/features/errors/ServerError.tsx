@@ -14,15 +14,17 @@ export default function ServerError() {
             sx={{ px: 4, pt: 2 }}
             color="secondary"
           >
-            {state.error?.message || "Some Error"}
+            {state.error.message || "There has been an error!"}
           </Typography>
           <Divider />
-          <Typography variant="body1" sx={{ px: 4 }}>
-            {state.error?.details || "Internal Server Error"}
+          <Typography variant="body1" sx={{ p: 4 }}>
+            {state.error.details || "Internal server error"}
           </Typography>
         </>
       ) : (
-        <Typography variant="h5">"Server Error"</Typography>
+        <Typography variant="h5" gutterBottom>
+          Server error
+        </Typography>
       )}
     </Paper>
   );

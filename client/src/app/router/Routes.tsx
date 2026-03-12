@@ -12,6 +12,7 @@ import RequireAuth from "./RequireAuth";
 import RegisterForm from "../../features/account/RegisterForm";
 import ProfilePage from "../../features/profiles/ProfilePage";
 import NotFound from "../../features/errors/NotFound";
+import VerifyEmail from "../../features/account/VerifyEmail";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
           { path: "activities", element: <ActivityDashboard /> },
           { path: "activities/:id", element: <ActivityDetailPage /> },
           { path: "createActivity", element: <ActivityForm key="create" /> },
-          { path: "manage/:id", element: <ActivityForm key="manage" /> },
+          { path: "manage/:id", element: <ActivityForm /> },
           { path: "profiles/:id", element: <ProfilePage /> },
         ],
       },
@@ -35,7 +36,8 @@ export const router = createBrowserRouter([
       { path: "server-error", element: <ServerError /> },
       { path: "login", element: <LoginForm /> },
       { path: "register", element: <RegisterForm /> },
-      { path: "*", element: <Navigate replace to="not-found" /> },
+      { path: "confirm-email", element: <VerifyEmail /> },
+      { path: "*", element: <Navigate replace to="/not-found" /> },
     ],
   },
 ]);
