@@ -81,11 +81,25 @@ public class AccountController(SignInManager<User> signInManager,
         return Ok(new { user.DisplayName, user.Email, user.Id, user.ImageUrl });
     }
 
-    [Authorize]
     [HttpPost("logout")]
     public async Task<ActionResult> Logout()
     {
         await signInManager.SignOutAsync();
         return NoContent();
+    }
+
+    [HttpPost("change-password")]
+    public async Task<ActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
+    {
+        var user = await signInManager.UserManager.GetUserAsync(User);
+
+        if (user == null) return Unauthorized();
+
+        var result = await signInManager.UserManager
+                    .ChangePasswordAsync(user, changePasswordDto.CurrentPassword, changePasswordDto.NewPassword);
+
+        if (result.Succeeded) return Ok();
+
+        return BadRequest(result.Errors.First().Description);
     }
 }
