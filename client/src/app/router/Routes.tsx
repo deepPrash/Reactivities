@@ -13,6 +13,9 @@ import RegisterForm from "../../features/account/RegisterForm";
 import ProfilePage from "../../features/profiles/ProfilePage";
 import NotFound from "../../features/errors/NotFound";
 import VerifyEmail from "../../features/account/VerifyEmail";
+import ChangePasswordForm from "../../features/account/ChangePasswordForm";
+import ForgotPasswordForm from "../../features/account/ForgotPasswordForm";
+import ResetPasswordForm from "../../features/account/ResetPasswordForm";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +30,7 @@ export const router = createBrowserRouter([
           { path: "createActivity", element: <ActivityForm key="create" /> },
           { path: "manage/:id", element: <ActivityForm /> },
           { path: "profiles/:id", element: <ProfilePage /> },
+          { path: "change-password", element: <ChangePasswordForm /> },
         ],
       },
       { path: "", element: <HomePage /> },
@@ -37,6 +41,8 @@ export const router = createBrowserRouter([
       { path: "login", element: <LoginForm /> },
       { path: "register", element: <RegisterForm /> },
       { path: "confirm-email", element: <VerifyEmail /> },
+      { path: "forgot-password", element: <ForgotPasswordForm /> },
+      { path: "reset-password", element: <ResetPasswordForm /> },
       { path: "*", element: <Navigate replace to="/not-found" /> },
     ],
   },

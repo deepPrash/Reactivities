@@ -1,12 +1,14 @@
 using System;
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Client;
 using Resend;
 
 namespace Infrastructure.Email;
 
-public class EmailSender(IServiceScopeFactory scopeFactory) : IEmailSender<User>
+public class EmailSender(IResend resend, IConfiguration config) : IEmailSender<User>
 {
     public async Task SendConfirmationLinkAsync(User user, string email, string confirmationLink)
     {
@@ -21,9 +23,20 @@ public class EmailSender(IServiceScopeFactory scopeFactory) : IEmailSender<User>
     }
 
 
-    public Task SendPasswordResetCodeAsync(User user, string email, string resetCode)
+    public async Task SendPasswordResetCodeAsync(User user, string email, string resetCode)
     {
-        throw new NotImplementedException();
+        var subject = "Reset your password";
+        var body = $@"
+            <p>Hi {user.UserName},</p>
+            <p>Please click this click to reset your password:</p>
+            <p>
+                <a href='{config["ClientAppUrl"]}/reset-password?email={email}&code={resetCode}'>
+                        Reset Password
+                </a>
+            </p>
+            <p>Please ignore, if you did not request this!</p>";
+
+        await SendMailAsync(email, subject, body);
     }
 
     public Task SendPasswordResetLinkAsync(User user, string email, string resetLink)
@@ -33,9 +46,6 @@ public class EmailSender(IServiceScopeFactory scopeFactory) : IEmailSender<User>
 
     private async Task SendMailAsync(string email, string subject, string body)
     {
-        using var scope = scopeFactory.CreateScope();
-        var resend = scope.ServiceProvider.GetRequiredService<ResendClient>();
-
         var emailMessage = new EmailMessage
         {
             From = "whatever@resend.dev",
